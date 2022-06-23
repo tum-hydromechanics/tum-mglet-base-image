@@ -16,5 +16,5 @@ Github container registry.
 
 If you want to build the images yourself locally, the commands are::
 
-    docker build -t intel-impi-image:latest .
-    docker build -t gnu-ompi-image:latest .
+    docker build --target intel-impi-image -t intel-impi-image:latest .
+    docker build --target gnu-ompi-image -t gnu-ompi-image:latest .

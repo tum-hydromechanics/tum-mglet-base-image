@@ -5,9 +5,6 @@ SHELL ["/bin/bash", "-c"]
 # Note: "yum check-update" return code 100 if there are packages to be updated,
 # hence the ";" instead of "&&"
 #     vim-common for xxd (not obvious)
-#
-# rh-git227-gitl-fs does not exist for some strange reason, therefore use
-# rh-git218 and rh-git218-git-lfs
 RUN yum check-update ; \
     yum -y update && \
     yum -y install bash-completion \
@@ -23,9 +20,21 @@ RUN yum check-update ; \
                    vim-common \
                    wget \
                    which && \
-    yum -y install patchelf rh-python38 rh-python38-python-devel rh-git218 rh-git218-git-lfs && \
+    yum -y install patchelf rh-python38 rh-python38-python-devel && \
     yum -y update && \
     yum -y --enablerepo="epel" install the_silver_searcher && \
+    yum clean all
+
+# Install an updated Git from ius.io and git-lfs from packagecloud.io
+#
+# rh-git218 does not work with Github actions (too old)
+# rh-git227 does not have Git LFS
+# so therefore using this approach
+RUN yum -y install https://repo.ius.io/ius-release-el7.rpm && \
+    yum check-update ; \
+    yum -y install git236 && \
+    curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.rpm.sh | bash && \
+    yum -y install git-lfs && \
     yum clean all
 
 # Fetch and install updated CMake in /usr/local
@@ -51,9 +60,7 @@ ENV HDF5_VER="1.12.2"
 COPY build-hdf5.sh /opt/
 
 # Create bashrc file
-RUN echo "source scl_source enable rh-git218" > /opt/bashrc && \
-    echo "source /opt/rh/rh-git218/root/usr/share/bash-completion/completions/git" >> /opt/bashrc && \
-    echo "source scl_source enable rh-python38" >> /opt/bashrc
+RUN echo "source scl_source enable rh-python38" >> /opt/bashrc
 
 
 # ---------------------------------------------------------------------------- #
