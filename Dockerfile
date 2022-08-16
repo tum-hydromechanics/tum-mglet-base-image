@@ -19,7 +19,8 @@ RUN yum check-update ; \
                    unzip \
                    vim-common \
                    wget \
-                   which && \
+                   which \
+                   zlib-devel && \
     yum -y install patchelf rh-python38 rh-python38-python-devel && \
     yum -y update && \
     yum -y --enablerepo="epel" install the_silver_searcher && \
@@ -77,7 +78,7 @@ COPY oneAPI.repo /etc/yum.repos.d/
 RUN yum -y install intel-oneapi-compiler-dpcpp-cpp-2022.1.0 \
                    intel-oneapi-compiler-fortran-2022.1.0 \
                    intel-oneapi-mpi-devel-2021.6.0 \
-                   gcc make && \
+                   gcc gcc-c++ make && \
     yum clean all
 
 # CPU architecture for optimizations and default compiler flags
