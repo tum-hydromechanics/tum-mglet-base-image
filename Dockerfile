@@ -49,7 +49,7 @@ RUN mkdir /tmp/cmake-install && \
     rm -rf /tmp/cmake-install
 
 # Fetch and install updated Ninja-build in /usr/local
-ARG NINJA_URL="https://github.com/ninja-build/ninja/releases/download/v1.11.0/ninja-linux.zip"
+ARG NINJA_URL="https://github.com/ninja-build/ninja/releases/download/v1.11.1/ninja-linux.zip"
 RUN mkdir /tmp/ninja-install && \
     cd /tmp/ninja-install && \
     wget --no-verbose $NINJA_URL && \
@@ -57,7 +57,7 @@ RUN mkdir /tmp/ninja-install && \
     cd / && \
     rm -rf /tmp/ninja-install
 
-ENV HDF5_VER="1.12.2"
+ENV HDF5_VER="1.14.0"
 COPY build-hdf5.sh /opt/
 
 # Create bashrc file
@@ -75,9 +75,9 @@ COPY oneAPI.repo /etc/yum.repos.d/
 #     instead of:
 #     yum -y install intel-basekit intel-hpckit
 # Package ref: https://oneapi-src.github.io/oneapi-ci/#linux-yum-dnf
-RUN yum -y install intel-oneapi-compiler-dpcpp-cpp-2022.1.0 \
-                   intel-oneapi-compiler-fortran-2022.1.0 \
-                   intel-oneapi-mpi-devel-2021.6.0 \
+RUN yum -y install intel-oneapi-compiler-dpcpp-cpp-2022.2.1 \
+                   intel-oneapi-compiler-fortran-2022.2.1 \
+                   intel-oneapi-mpi-devel-2021.7.1 \
                    gcc gcc-c++ make && \
     yum clean all
 
@@ -86,7 +86,7 @@ ENV CC="icx"
 ENV CXX="icpx"
 ENV FC="ifx"
 
-ENV CPU_ARCH="corei7"
+ENV CPU_ARCH="x86-64-v2"
 ENV CFLAGS="-march=${CPU_ARCH}"
 ENV CXXFLAGS="-march=${CPU_ARCH}"
 ENV FFLAGS="-march=${CPU_ARCH}"
@@ -105,6 +105,9 @@ RUN echo "source /opt/intel/oneapi/setvars.sh" >> /opt/bashrc
 # GNU compilers, OpenMPI image
 FROM build-base-image AS gnu-ompi-image
 LABEL description="GNU compilers with OpenMPI and HDF5 image for building Fortran applications"
+
+# Ref. https://superuser.com/questions/784451/centos-on-docker-how-to-install-doc-files
+RUN sed -i '/nodocs/d' /etc/yum.conf
 
 # Install GNU compilers and UCX
 RUN yum -y install devtoolset-11 devtoolset-11-libasan-devel devtoolset-11-libubsan-devel ucx-devel && \

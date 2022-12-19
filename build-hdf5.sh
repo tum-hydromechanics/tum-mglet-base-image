@@ -20,7 +20,7 @@ cd build
 cmake \
     -GNinja \
     -DCMAKE_INSTALL_PREFIX=$HDF5_ROOT_DIR/install \
-    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DHDF5_BUILD_FORTRAN=ON \
     -DBUILD_TESTING=OFF \
     -DHDF5_ENABLE_Z_LIB_SUPPORT=OFF \
