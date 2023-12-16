@@ -15,7 +15,7 @@ jobs:
       # can use build cache from first job)
       max-parallel: 1
       matrix:
-        target-image: ["intel-impi-image", "gnu-ompi-image"]
+        target-image: ["build-base-image"]
 
     steps:
     - uses: actions/checkout@v3
