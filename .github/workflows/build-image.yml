@@ -54,7 +54,7 @@ jobs:
       name: Login to Github Packages
       with:
         registry: ghcr.io
-        username: tum-hydromechanics
+        username: ${{ github.actor }}
         password: ${{ secrets.OUR_TOKEN }}
 
     - uses: docker/build-push-action@v3
