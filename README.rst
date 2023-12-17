@@ -1,25 +1,4 @@
-###############################
-Image for the standard environment at TUM hydromechanics
-###############################
 
-This image contains a reflection of the systems that TUM hydromechanics usually runs MGELT on.
-As we exploit the freely available services of ghrc.io, we can only offer one image due to size restrictions.
-
-Only one single image is built (333 MB on ghrc.io, about 900 MB extracted):
-
-1. ``build-base-image``: GNU Compilers and OpenMPI (versions specified)
-
-Images are automatically build with Github Actions and are published at the
-Github container registry.
-
-If you want to build the image yourself locally from the Dockerfile, the commands are::
-
-    docker build --target build-base-image -t build-base-image:latest .
-
-
-Alternatively, you can get the provided container via::
-
-    docker pull ghcr.io/tum-hydromechanics/build-base-image:sha-383a5be
     
 
 Helpful commands for docker are::
