@@ -12,28 +12,37 @@ Only one single image is built (333 MB on ghrc.io, about 900 MB extracted):
 Images are automatically build with Github Actions and are published at the
 Github container registry.
 
-If you want to build the image yourself locally, the commands are::
+If you want to build the image yourself locally from the Dockerfile, the commands are::
 
     docker build --target build-base-image -t build-base-image:latest .
-    
-    
-Helpful commands are::
 
-    docker run -dit build-base-image
-    sudo chmod 666 /var/run/docker.sock (may be necessary)
+
+Alternatively, you can get the provided container via::
+
+    docker pull ghcr.io/tum-hydromechanics/build-base-image:sha-383a5be
     
 
-Now you should see what is running at the moment::
+Helpful commands for docker are::
+
+    sudo chmod 666 /var/run/docker.sock (may be necessary if permission denied)
+    docker images (shows available images)
+    docker run -dit d4c1a4246e02
+    docker ps
+    
+
+Now you should see what is running at the moment (here as example)::
     
     $ docker ps
     CONTAINER ID   IMAGE              COMMAND       CREATED          STATUS          PORTS     NAMES
     22c87fefb12c   gnu-ompi-image     "/bin/bash"   19 minutes ago   Up 19 minutes             tender_rhodes
     6d55b5ae2986   intel-impi-image   "/bin/bash"   21 minutes ago   Up 21 minutes             romantic_hawking
 
+
 It is now possible to operate bash in the container::
 
     docker exec -it 22c87fefb12c bash
     [exit]
+
 
 Stopping the runner containers::
 

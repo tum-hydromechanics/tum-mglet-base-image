@@ -4,15 +4,15 @@ FROM ubuntu:22.04 AS build-base-image
 LABEL maintainer="TUM Hydromechanics in persona of Simon Wenczowski <simon.wenczowski@tum.de>"
 SHELL ["/bin/bash", "-c"]
 
-# --- setting versions for "our" main systems ---
+# --- setting versions for "our" main systems --- (reflects hyd38)
 ENV CMAKE_VER="3.23.2"
 ENV NINJA_VER="1.11.1"
-ENV OMPI_VER="4.1.4"
-ENV HDF5_VER="1.14.0"
+ENV OMPI_VER="4.0.1"
+ENV HDF5_VER="1.12.0"
 
 # setting up the basic environment (with few convenience packages)
 RUN apt-get -y update && apt-get -y upgrade && \
-    apt-get -y install --no-install-recommends make wget ca-certificates unzip bzip2 time zlib1g-dev vim rsync libucx-dev git gcc g++ gfortran && \
+    apt-get -y install --no-install-recommends make wget ca-certificates unzip bzip2 time zlib1g-dev vim rsync libucx-dev git gcc g++ gfortran gdb sysvinit-utils python3 ssh && \
     apt-get clean
 
 ARG CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v${CMAKE_VER}/cmake-${CMAKE_VER}-linux-x86_64.tar.gz"
