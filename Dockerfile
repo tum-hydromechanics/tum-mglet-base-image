@@ -12,13 +12,13 @@ ENV HDF5_VER="1.14.0"
 
 # setting up the basic environment (with few convenience packages)
 RUN apt-get -y update && apt-get -y upgrade && \
-    apt-get -y install --no-install-recommends make wget unzip bzip2 time zlib1g-dev vim rsync libucx-dev git gcc g++ gfortran && \
+    apt-get -y install --no-install-recommends make wget ca-certificates unzip bzip2 time zlib1g-dev vim rsync libucx-dev git gcc g++ gfortran && \
     apt-get clean
 
 ARG CMAKE_URL="https://github.com/Kitware/CMake/releases/download/v${CMAKE_VER}/cmake-${CMAKE_VER}-linux-x86_64.tar.gz"
 RUN mkdir /tmp/cmake-install && \
     cd /tmp/cmake-install && \
-    wget --no-check-certificate --no-verbose $CMAKE_URL && \
+    wget --no-verbose $CMAKE_URL && \
     tar -xf cmake-${CMAKE_VER}-linux-x86_64.tar.gz -C /usr/local --strip-components=1 && \
     cd / && \
     rm -rf /tmp/cmake-install 
@@ -26,7 +26,7 @@ RUN mkdir /tmp/cmake-install && \
 ARG NINJA_URL="https://github.com/ninja-build/ninja/releases/download/v${NINJA_VER}/ninja-linux.zip"
 RUN mkdir /tmp/ninja-install && \
     cd /tmp/ninja-install && \
-    wget --no-check-certificate --no-verbose $NINJA_URL && \
+    wget --no-verbose $NINJA_URL && \
     unzip ninja-linux.zip -d /usr/local/bin && \
     cd / && \
     rm -rf /tmp/ninja-install

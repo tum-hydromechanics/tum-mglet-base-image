@@ -44,7 +44,7 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: |
-          ghcr.io/swenczowski/${{ matrix.target-image }}
+          ghcr.io/tum-hydromechanics/${{ matrix.target-image }}
         tags: |
           type=ref,event=branch
           type=ref,event=tag

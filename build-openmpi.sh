@@ -10,7 +10,7 @@ OMPI_ROOT_DIR="/opt/openmpi/${OMPI_VER}"
 mkdir -p $OMPI_ROOT_DIR
 cd $OMPI_ROOT_DIR
 
-wget --no-check-certificate --no-verbose $OMPI_URL
+wget  --no-verbose $OMPI_URL
 tar -xf openmpi-${OMPI_VER}.tar.bz2
 rm openmpi-${OMPI_VER}.tar.bz2
 

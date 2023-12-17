@@ -10,7 +10,7 @@ HDF5_ROOT_DIR="/opt/hdf5/${HDF5_VER}"
 mkdir -p $HDF5_ROOT_DIR
 cd $HDF5_ROOT_DIR
 
-wget --no-check-certificate --no-verbose $HDF5_URL
+wget --no-verbose $HDF5_URL
 tar -xf hdf5-$HDF5_VER.tar.gz
 rm hdf5-$HDF5_VER.tar.gz
 
