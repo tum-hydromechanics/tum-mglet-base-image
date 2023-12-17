@@ -10,7 +10,7 @@ HDF5_ROOT_DIR="/opt/hdf5/${HDF5_VER}"
 mkdir -p $HDF5_ROOT_DIR
 cd $HDF5_ROOT_DIR
 
-wget --no-check-certificate --no-verbose $HDF5_URL
+wget --no-verbose $HDF5_URL
 tar -xf hdf5-$HDF5_VER.tar.gz
 rm hdf5-$HDF5_VER.tar.gz
 
@@ -31,20 +31,3 @@ cmake \
     -DHDF5_BUILD_HL_LIB=OFF \
     ../source 2>&1 | tee cmake.log
 ninja install 2>&1 | tee ninja.log
-
-mv cmake.log ..
-mv ninja.log ..
-
-# eliminating generated files
-cd .. 
-rm -rf source build
-
-# eliminating binaries while not disturbing cmake
-for filename in install/bin/*; do
-    rm -f filename
-    touch filename
-done
-
-# replacing archive library by dummy (mglet links shared)
-rm -f install/lib/libhdf5.a
-touch install/lib/libhdf5.a
