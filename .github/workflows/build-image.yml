@@ -44,7 +44,7 @@ jobs:
       uses: docker/metadata-action@v4
       with:
         images: |
-          ghcr.io/kmturbulenz/${{ matrix.target-image }}
+          ghcr.io/swenczowski/${{ matrix.target-image }}
         tags: |
           type=ref,event=branch
           type=ref,event=tag
