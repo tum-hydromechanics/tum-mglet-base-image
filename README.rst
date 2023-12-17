@@ -1,6 +1,3 @@
-
-    
-
 Helpful commands for docker are::
 
     sudo chmod 666 /var/run/docker.sock (may be necessary if permission denied)
