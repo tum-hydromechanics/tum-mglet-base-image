@@ -41,11 +41,8 @@ Stopping the runner containers::
     docker stop 6d55b5ae2986
 
 
-Finding the size of the provided image in ghrc.io::
+Finding the size of the provided image in ghrc.io (from https://gist.github.com/MichaelSimons/fb588539dcefd9b5fdf45ba04c302db6)::
 
-    https://gist.github.com/MichaelSimons/fb588539dcefd9b5fdf45ba04c302db6
-
-
-
-
+    dockersize() { docker manifest inspect -v "$1" | jq -c 'if type == "array" then .[] else . end' |  jq -r '[ ( .Descriptor.platform | [ .os, .architecture, .variant, ."os.version" ] | del(..|nulls) | join("/") ), ( [ .SchemaV2Manifest.layers[].size ] | add ) ] | join(" ")' | numfmt --to iec --format '%.2f' --field 2 | column -t ; }
+    dockersize ghcr.io/tum-hydromechanics/build-base-image:sha-2ec8b88
 
